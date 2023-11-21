@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LETS GET WASTED</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+</head>
+<style>
+
+body {
+  margin: 0;
+	font-family: 'Bangers', regular;
+  height: 100vh;
+  background-color: #7f00ff;
+  background-image: linear-gradient(19deg, #7f00ff 0%, #e100ff 100%);
+}
+
+h1 {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: #ffffff;
+	letter-spacing: 0.2rem;
+	word-spacing: 0.1rem;
+	
+	margin: 1em;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 45px;
+}
+
+h2 {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: #ffffff;
+	letter-spacing: 0.1rem;
+	word-spacing: 0.1rem;
+	
+	margin: 1em;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 30px;
+}
+
+h3 {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: #ffffff;
+	letter-spacing: 0.1rem;
+	word-spacing: 0.1rem;
+	
+	margin: 1em;
+  text-align: left;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.testoazione{
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+}
+
+.imgAzione{
+	width: auto;
+  height: 55vmin;
+  display: flex;
+  position: relative;
+	margin:auto;
+	max-width: 95%;
+}
+
+.boximg{
+
+  border: solid black;
+  border-color: black;
+  float:center;
+  border-width: 3px 3px 5px 5px;
+  border-radius:4% 95% 6% 95%/95% 4% 92% 5%;
+  transform: rotate(-2deg);
+	
+}
+
+.ball {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font: 500 5vmin/6vmin Helvetica, Arial, sans-serif;
+  
+  position: fixed;
+	left: 50%;
+  bottom: 20px;
+
+	margin-top: -20vmin; /* Negative half of height. */
+	margin-left: -20vmin; /* Negative half of width. */
+
+  width: 40vmin;
+  height: 40vmin;
+  padding: 8vmin;
+  box-sizing: border-box;
+  border-radius: 1em;
+  background: #000040;
+
+  cursor: pointer;
+  box-shadow: 0 2vmin 2.5vmin -2vmin rgba(0, 0, 0, 0.5);
+  transition: background 0.25s ease-in, color 0.25s ease-in,
+    transform 0.25s ease-in 0.25s, border-radius 0.25s ease-in 0.5s;
+}
+/*
+.ball {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font: 500 5vmin/6vmin Helvetica, Arial, sans-serif;
+  position: relative;
+  width: 40vmin;
+  height: 40vmin;
+  padding: 8vmin;
+  box-sizing: border-box;
+  border-radius: 1em;
+  background: #000;
+  margin: auto;
+  cursor: pointer;
+  box-shadow: 0 2vmin 2.5vmin -2vmin rgba(0, 0, 0, 0.5);
+  transition: background 0.25s ease-in, color 0.25s ease-in,
+    transform 0.25s ease-in 0.25s, border-radius 0.25s ease-in 0.5s;
+}*/
+.ball::before {
+  content: "";
+  position: absolute;
+  top: 22.5%;
+  left: 5%;
+  width: 90%;
+  height: 80%;
+  border-radius: inherit;
+  background: inherit;
+  filter: blur(3vmin);
+}
+.ball::after {
+  content: "";
+  position: absolute;
+  left: -25%;
+  top: -25%;
+  width: 150%;
+  height: 150%;
+  border: 6vmin solid #000040;
+  opacity: 0.25;
+  box-sizing: border-box;
+  border-radius: 50%;
+  transform: scale(0.5);
+  transition: all 0.5s ease-in;
+  z-index: -10;
+}
+.ball span {
+  z-index: 1;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.25vmin;
+  user-select: none;
+  font-size: 1.5em;
+  line-height: 120%;
+  font-family: 'Bangers', regular;
+}
+.ball .large-text {
+  font-size: 2.5em;
+  line-height: 0.875em;
+}
+
+.ball:active {
+  border-radius: 50%;
+  transform: scale(0.625);
+  background: #fff;
+  color: navy;
+  transition: border-radius 0.25s ease-out, transform 0.25s ease-out 0.25s,
+    background 0.25s ease-out 0.5s, color 0.25s ease-out 0.5s;
+}
+.ball:active::after {
+  transform: scale(1);
+  border-color: #fff;
+  transition: all 0.25s ease-out 0.5s;
+}
+
+input[type="checkbox"] {
+	width: 0;
+	height: 0;
+	visibility: hidden;
+	float:center;
+}
+
+label {
+  display: inline-block;
+  width: 45px;
+  height: 15px;
+  background-color: #551759;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+  box-shadow: 0 0 5px #477a85;
+}
+
+label::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #cca5cf;
+  position: absolute;
+  border-radius: 7px;
+  top: 1.5px;
+  left: 1.5px;
+  transition: 0.5s;
+}
+
+input:checked + label:after {
+	left: calc(100% - 1.5px);
+	transform: translateX(-100%);
+}
+
+.switches{
+	position: relative;
+	left: 20%;
+	display: inline-block;
+
+}
+
+
+
+</style>
+<body oncontextmenu="return false;">
+  
+  <div class="testoAzione">
+
+	<h1 id="cat-azione-Sel">LETS GET WASTEEEED!!!</h1>
+	<h2 id="azione-Sel"></h2>
+	<h3 id="regole">
+  </h3>
+  <div>
+  	<img class="imgAzione boximg" id="img-Sel" src="">
+	</div>
+	
+	<div id="sceltaGioco-button" class="ball">
+      <span id="sceltaGioco">DAI CAZZO</span>
+  </div>
+  <div id="azioneRandom-button" class="ball">
+      <span id="countdown">PRESS & HOLD</span>
+  </div>
+  
+
+<div id="switches" class="switches">
+		<div>
+				<input id="ck-actions" name="ck-actions" type="checkbox" checked />
+				<label for="ck-actions"></label>
+				Actions
+		</div>
+		<br>
+		<div id="div-ck-jenga">
+				<input id="ck-jenga" name="ck-jenga" type="checkbox" />
+				<label for="ck-jenga"></label>
+				Jenga
+		<br>
+		</div>
+		<div>
+				<input id="ck-cards" name="ck-cards" type="checkbox" />
+				<label for="ck-cards"></label>
+				Cards
+		</div>
+		<br>
+		<div>
+				<input id="ck-hot" name="ck-hot" type="checkbox" />
+				<label for="ck-hot"></label>
+				Hot
+		</div>
+		<br>
+		<br>
+		<br>
+		<div>
+				<input id="ck-countdown" name="ck-countdown" type="checkbox" checked />
+				<label for="ck-countdown"></label>
+				Countdown
+		</div>
+		<br>
+		<div>
+				<input id="ck-audio" name="ck-audio" type="checkbox" checked />
+				<label for="ck-audio"></label>
+				Audio
+		</div>
+
+</div>
+	
+<audio id="audio-azione">
+  <source src="" type="audio/mpeg">
+</audio>
+<!--
+https://assets.mixkit.co/active_storage/sfx/2313/2313-preview.mp3
+https://assets.mixkit.co/active_storage/sfx/2045/2045-preview.mp3
+https://assets.mixkit.co/active_storage/sfx/227/227-preview.mp3
+https://assets.mixkit.co/active_storage/sfx/914/914-preview.mp3
+https://assets.mixkit.co/active_storage/sfx/2784/2784-preview.mp3
+
+-->
+	</div>
+	
+	
+  <script>
+
+const apiKey = 'AIzaSyAM3dcFBIVc8DCwYSrfVWj0uAAUc2Xqxdo';
+const sheetId = '1mpDaPQYDQbfTpigGCI6jHS38re7UKIjobeq6BLs1-w8';
+
+var azioni = new Array();
+var azioniPassate = new Array();
+var audioArray = new Array();
+var audioArrayPassate = new Array();
+
+var rand = 0;
+var randAudio = 0;
+var presente = 1;
+var presenteAudio = 1;
+
+var rVect = [];
+var rGame = '';
+var rCateg = '';
+var rValue = '';
+var rImg = '';
+var rSound = '';
+
+window.addEventListener('beforeunload', function (e) {
+
+  // Cancel the unload event and show browsers "Yes/No" confirmation box
+  e.preventDefault();
+  e.returnValue = '';     // Chrome requires returnValue to be set
+  return '?';             // Older browsers need string to be returned
+});
+
+    // Funzione per caricare i dati dal Google Sheet
+    function loadGoogleSheetData() {
+      // Sostituisci con la tua chiave di API e ID del foglio di calcolo
+      //const apiKey = 'AIzaSyAM3dcFBIVc8DCwYSrfVWj0uAAUc2Xqxdo';
+      //const sheetId = '1mpDaPQYDQbfTpigGCI6jHS38re7UKIjobeq6BLs1-w8';
+
+      // URL per accedere ai dati del Google Sheet
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
+				
+      // Effettua una richiesta GET per ottenere i dati
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+          // Estrai i dati e crea elementi della lista
+          data.values.forEach(row => {
+            
+            azioni.push(row);
+
+          });
+        })
+        .catch(error => {
+          console.error('Errore nella lettura dei dati:', error);
+        });
+    }
+
+  	
+		function generateRandomColor() {
+		  const letters = '0123456789ABCDEF'; // Caratteri validi per rappresentare i colori in formato esadecimale
+		  let color = '#';
+		  for (let i = 0; i < 6; i++) {
+		    color += letters[Math.floor(Math.random() * 16)]; // Scegli un carattere casuale da 'letters'
+		  }
+		  return color;
+		}
+
+		function pickRandom(){
+			
+			rand = 0;
+			randAudio = 0;
+			presente = 1;
+			presenteAudio = 1;
+
+			while(presente==1){
+				rand = Math.floor(Math.random()*azioni.length);
+				//console.log(rand);
+				//console.log(azioniPassate);
+				presente=0;
+	
+				if(azioniPassate.indexOf(rand) !== -1){
+					presente=1;
+				}
+				
+				if(azioni.length == azioniPassate.length){
+					theEnd();
+					return;
+				}
+				console.log(azioni.length + " " + azioniPassate.length);
+				console.log(rand + " presente= " + presente);
+			}
+			//console.log(rand);
+			
+			rVect = azioni[rand];
+			azioniPassate.push(rand);
+			azioniPassate.sort(function(a, b){return a - b});
+			rGame = rVect[1];
+			rCateg = rVect[2];
+			rValue = rVect[3];
+			rImg = rVect[4];
+			rSound = rVect[5];
+			//console.log(rCateg);
+			//console.log(rValue);
+
+		}
+
+  	function azioneRandom(){
+  	
+  	//console.log(azioni);
+  	const countdownElement = document.getElementById('countdown');
+  	if(countdownElement.textContent!='PRESS & HOLD'){
+  		return;	
+  	}
+  	
+		if(azioni.length == azioniPassate.length){
+			theEnd();
+			return;
+		}
+		
+		startCountdown();
+		
+		const ckActions = document.getElementById('ck-actions');
+		const ckJenga = document.getElementById('ck-jenga');
+		const ckHot = document.getElementById('ck-hot');
+		const ckCards = document.getElementById('ck-cards');
+		
+		var chkGame = 1;
+		
+		while(chkGame==1){
+			
+			pickRandom();
+			
+			chkGame = 0;
+			console.log(rVect);
+			
+			if(!ckActions.checked && rGame == ''){
+				chkGame=1;
+			}else{
+				
+			}
+			
+			if(!ckJenga.checked && rGame == 'JENGA'){
+				chkGame=1;
+			}else{
+				
+			}
+			
+			if(!ckHot.checked && rGame == 'HOT'){
+				chkGame=1;
+			}else{
+				
+			}
+			
+			if(!ckCards.checked && rGame == 'CARDS'){
+				chkGame=1;
+			}else{
+				
+			}
+			
+			console.log(chkGame);
+			
+			if(azioni.length == azioniPassate.length){
+				theEnd();
+				return;
+			}
+		}
+
+
+		//-----------------------------------------------------------------
+		
+		const regole = document.getElementById('regole');
+    regole.innerHTML = '';
+    $('#regole').hide();
+    
+		const catAzioneSel = document.getElementById('cat-azione-Sel');
+    catAzioneSel.innerHTML = '';
+    catAzioneSel.textContent=rCateg;
+    
+		const azioneSel = document.getElementById('azione-Sel');
+    azioneSel.innerHTML = '';
+    azioneSel.textContent=rValue;
+    $('#azione-Sel').show();
+    
+    const imgSel = document.getElementById('img-Sel');
+    imgSel.innerHTML = '';
+    imgSel.src='';
+    //console.log(rImg);
+    if(rImg!=undefined && rImg!=''){
+    	imgSel.src=rImg;
+	    $('#img-Sel').show();
+		}else{
+			$('#img-Sel').hide();
+		}
+		
+		var color1=generateRandomColor();
+		var color2=generateRandomColor();
+		var newBgImage="linear-gradient(19deg, "+color1+" 0%, "+color2+" 100%)"
+		
+    document.body.style.backgroundImage = newBgImage;
+    
+    const ckAudio = document.getElementById('ck-audio');
+
+    if(ckAudio.checked){
+    	
+    	const audioAzione = document.getElementById('audio-azione');
+    	
+    	if(rSound == undefined || rSound == ''){
+	    	while(presenteAudio==1){
+					randAudio = Math.floor(Math.random()*audioArray.length);
+					presenteAudio=0;
+					//console.log('randAudio:'+randAudio);
+					
+					if(audioArrayPassate.indexOf(randAudio) !== -1){
+						presenteAudio=1;
+					}
+				}
+				audioAzione.src=audioArray[randAudio];
+				audioArrayPassate.push(randAudio);
+			}else{
+				audioAzione.src=rSound;
+			}
+
+			//console.log('audioArray[randAudio]:'+audioArray[randAudio]);
+
+			if(audioArray.length == audioArrayPassate.length){
+				audioArrayPassate = [];
+			}
+			
+			try {
+			  audioAzione.play();
+			} catch (error) {
+			  console.error(error);
+			}
+			
+  	}
+		
+  	}
+  	
+  	function startGame(){
+  		
+  		// JENGA
+  		const ckJenga = document.getElementById('ck-jenga');
+  		if(!ckJenga.checked){
+  			$('#regole').html("REGOLE:<br>- Se fallisci l'azione bevi! <br>- Se ti rifiuti di svolgere l'azione bevi!<br> - Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!<br><br>'' Ezechiele 25,17 '' Il cammino dell' uomo timorato e' minacciato da ogni parte dalle iniquita' degli esseri egoisti e dalla tirannia degli uomini malvagi. Benedetto sia colui che nel nome della carita' e della buona volonta' conduce i deboli attraverso la valle delle tenebre; perche' egli e' in verita' il pastore di suo fratello e il ricercatore dei figli smarriti. E la mia giustizia calera' sopra di loro con grandissima vendetta e furiosissimo sdegno su coloro che si proveranno ad ammorbare e infine a distruggere i miei fratelli. E tu saprai che il mio nome e' quello del Signore quando faro' calare la mia vendetta sopra di te.");
+  			const audioAzione = document.getElementById('audio-azione');
+  			audioAzione.src='https://github.com/Didacus85/Jenga/raw/main/Ezekiele.mp3';
+  			
+	  		try {
+				  audioAzione.play();
+				} catch (error) {
+				  console.error(error);
+				}
+			
+  		}else{ // NO JENGA
+  			
+  			$('#regole').html("REGOLE:<br>- Chi fa cadere il jenga beve un bicchiere alla goccia!	<br>- Se ti cade un blocchetto sul tavolo mentre estrai bevi un sorso!	<br>- Se fallisci l'azione bevi!	<br>- Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!<br><br>'' Ezechiele 25,17 '' Il cammino dell' uomo timorato e' minacciato da ogni parte dalle iniquita' degli esseri egoisti e dalla tirannia degli uomini malvagi. Benedetto sia colui che nel nome della carita' e della buona volonta' conduce i deboli attraverso la valle delle tenebre; perche' egli e' in verita' il pastore di suo fratello e il ricercatore dei figli smarriti. E la mia giustizia calera' sopra di loro con grandissima vendetta e furiosissimo sdegno su coloro che si proveranno ad ammorbare e infine a distruggere i miei fratelli. E tu saprai che il mio nome e' quello del Signore quando faro' calare la mia vendetta sopra di te.");
+  			const audioAzione = document.getElementById('audio-azione');
+  			audioAzione.src='https://github.com/Didacus85/Jenga/raw/main/Ezekiele.mp3';
+  			
+  			try {
+				  audioAzione.play();
+				} catch (error) {
+				  console.error(error);
+				}
+  		}
+  		
+			$('#regole').show();	
+  		$('#azioneRandom-button').show();
+  		$('#sceltaGioco-button').hide();
+  		$('#switches').hide();
+
+  	}
+  	
+  	function theEnd(){
+
+	  	const regole = document.getElementById('regole');
+	    regole.innerHTML = '';
+	    
+			const catAzioneSel = document.getElementById('cat-azione-Sel');
+	    catAzioneSel.innerHTML = '';
+	    catAzioneSel.textContent='THE END';
+	    
+			const azioneSel = document.getElementById('azione-Sel');
+	    azioneSel.innerHTML = '';
+	    
+	    const imgSel = document.getElementById('img-Sel');
+	    imgSel.innerHTML = '';
+	    imgSel.src='';
+			$('#img-Sel').hide();
+			
+			var color1='#7f00ff';
+			var color2='#e100ff';
+			var newBgImage="linear-gradient(19deg, "+color1+" 0%, "+color2+" 100%)"
+	
+	    document.body.style.backgroundImage = newBgImage;
+  	}
+  	
+  	function startCountdown() {
+  		let timeLeft = 15;
+  		
+  		const ckCountdown = document.getElementById('ck-countdown');
+  		
+  		if(ckCountdown.checked){
+  				timeLeft = 15;
+  		}else{
+  				timeLeft = 0;
+  		}
+		  
+		  const countdownElement = document.getElementById('countdown');
+		
+		  const countdownInterval = setInterval(function() {
+		    if (timeLeft <= 0) {
+		      clearInterval(countdownInterval);
+		      countdownElement.style.fontSize = "1.5em";
+		      countdownElement.innerHTML = 'PRESS & HOLD';
+		    } else {
+		    	countdownElement.style.fontSize = "4em";
+		      countdownElement.innerHTML = timeLeft;
+		      timeLeft--;
+		    }
+		  }, 1000); // Intervallo di 1 secondo (1000 millisecondi)
+		}
+  	
+  	let buttonPressed = false;
+		let timeout;
+		
+		function startTimer() {
+		  // Avvia un timer di 3 secondi
+		  timeout = setTimeout(function() {
+		    if (buttonPressed) {
+		      // Esegui l'azione desiderata
+		      azioneRandom();
+		    }
+		  }, 750); // 3000 millisecondi (3 secondi)
+		}
+		
+		function buttonDown() {
+		  // Imposta buttonPressed a true quando il pulsante viene premuto
+		  //alert("pressed");
+		  buttonPressed = true;
+		  startTimer();
+		}
+		
+		function buttonUp() {
+		  // Resetta il timer e imposta buttonPressed a false quando il pulsante viene rilasciato
+		  //alert("released");
+		  clearTimeout(timeout);
+		  buttonPressed = false;
+		}
+
+		function prepareAudio(){
+audioArray.push('https://www.myinstants.com/media/sounds/dun-dun-dun-sound-effect-brass_8nFBccR.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/mlg-airhorn.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/metal-pipe-clang.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/nooo.swf.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/y2mate_DO1kVeR.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/thisissparta.swf.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/eero.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/deja-vu.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/gas-gas-gaslqshort.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/machi-no-dorufin.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/hd-epic-sax-gandalf-10-sec_f1uqKhm.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/cat-vibing-to-ievan-polkka.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/jojos-golden-wind_kL2WElB.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/trollolo.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/edit_sEoaCDA.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/hold-up-tiktok.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/mc-hammer-u-cant-touch-this_Jl5Q7Hq.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/saul-goodman-better-call-saul.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/nein-adolf.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/giga-chad-theme.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/nick-eh-30-intro.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/olha-o-caminhar-do-elemento.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/spooky-scary-skeleton_WnTSX24.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/call-of-duty-zombie-yell-meme-sound-effect.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/original_zeowGW1.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/tiktok-du-badu.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/the-weeknd-rizzz.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/sound-9______.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/joke_drum_effect.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/artic.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/nibbers-hardbass.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/downer_noise.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/audio-cortado-2.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/meme-de-creditos-finales.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/run-vine-sound-effect.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/999-social-credit-siren.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/oh-no-no-no-tik-tok-song-sound-effect.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/weeeee_original_1193597514938524841.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/matteo-renzi-first-reaction.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/dj-snake-lil-jon-turn-down-for-what.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/sto-cazzo.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/non-ho-visto-niente.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/salvinii.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/renato-pozzetto.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/oh-no-no-no-no-laugh.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/emotional-damage_svaNMfN.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/rick-astley-never-gonna-give-you-up-chorus-1-audiotrimmer.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/titanic-parody-mp3cut.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/gangstasparadise.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/signora_i_limoni.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/universal-porco_IyeXJKu.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/germanomosconi_orco.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/audiocutter_i-griffin-il-ristorante-sushi-di-peter2.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/momento.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/DAbanana.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/DAcookie.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/DAuglyboy.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/belloBello.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/dennyfurboiovol.mp3');
+audioArray.push('https://www.myinstants.com/media/sounds/herecomesthemoney.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/silvio2.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/118.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/vitas.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/nevergonna.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/macellaio.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/lacipollaTrap.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/130sivola.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/micasonodeinegri.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/amazoni.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/silviotiktok.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/euforico.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/silvioce.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/EVA.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/AOT.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/BeTrap.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/wee.mp3');
+audioArray.push('https://github.com/Didacus85/Jenga/raw/main/weeweewee.mp3');
+
+		}
+
+
+		$(document).ready(function(){
+	  	// Aggiungi gli eventi per il pulsante
+	  	const sceltaGiocoButton = document.getElementById('sceltaGioco-button');
+	  	sceltaGiocoButton.addEventListener('mousedown', startGame);
+	  	sceltaGiocoButton.addEventListener('touchstart', startGame);
+	  	
+			const myButton = document.getElementById('azioneRandom-button');
+			myButton.addEventListener('mousedown', buttonDown);
+			myButton.addEventListener('mouseup', buttonUp);
+			myButton.addEventListener('mouseleave', buttonUp);
+			
+			myButton.addEventListener('touchstart', buttonDown);
+			myButton.addEventListener('touchend', buttonUp);
+			myButton.addEventListener('touchmove', buttonUp);
+			
+			prepareAudio();
+			
+		});
+
+
+    // Carica i dati al caricamento della pagina
+    loadGoogleSheetData();
+    $('#img-Sel').hide();
+		$('#azione-Sel').hide();
+		$('#azioneRandom-button').hide();
+		$('#regole').hide();
+		$('#div-ck-jenga').hide();
+		
+  </script>
+  
+
+</body>
+</html>
