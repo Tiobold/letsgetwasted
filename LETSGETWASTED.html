@@ -667,8 +667,10 @@ window.addEventListener('beforeunload', function (e) {
 		}
 
 		function opacizza(){
-			$('#azioneRandom-button').fadeTo("fast", 1);
-			$('#azioneRandom-button').fadeTo(3000, 0.001);
+			if($('#azioneRandom-button').css("opacity") == 0.001 || $('#azioneRandom-button').css("opacity") == 1){
+				$('#azioneRandom-button').fadeTo("fast", 1);
+				$('#azioneRandom-button').fadeTo(3000, 0.001);
+			}
 		}
 
 		function prepareAudio(){
