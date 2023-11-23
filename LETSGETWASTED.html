@@ -13,9 +13,17 @@
 body {
   margin: 0;
 	font-family: 'Bangers', regular;
-  height: 110vh;
+  height: 100vh;
   background-color: #7f00ff;
   background-image: linear-gradient(19deg, #7f00ff 0%, #e100ff 100%);
+}
+
+.margin1{
+	margin: 0.8em;
+}
+
+.margin0{
+	margin: 0.1em;
 }
 
 h1 {
@@ -27,7 +35,7 @@ h1 {
 	letter-spacing: 0.2rem;
 	word-spacing: 0.1rem;
 	
-	margin: 1em;
+	/*margin: 1em;*/
   text-align: center;
   text-transform: uppercase;
   font-weight: 800;
@@ -43,11 +51,12 @@ h2 {
 	letter-spacing: 0.1rem;
 	word-spacing: 0.1rem;
 	
-	margin: 1em;
+	/*margin: 1em;*/
   text-align: center;
   text-transform: uppercase;
   font-weight: 500;
   font-size: 30px;
+
 }
 
 h3 {
@@ -81,6 +90,15 @@ position: relative;
 	max-width: 95%;
 }
 
+.imgAzioneLandscape{
+	width: auto;
+  height: 40vmin;
+  display: flex;
+  position: relative;
+	margin:auto;
+	max-width: 95%;
+}
+
 .boximg{
 
   border: solid black;
@@ -100,7 +118,7 @@ position: relative;
   font: 500 5vmin/6vmin Helvetica, Arial, sans-serif;
   
   position: fixed;
-	left: 50%;
+	/*left: 50%;*/
   bottom: 20px;
 
 	margin-top: -20vmin; /* Negative half of height. */
@@ -118,6 +136,15 @@ position: relative;
   transition: background 0.25s ease-in, color 0.25s ease-in,
     transform 0.25s ease-in 0.25s, border-radius 0.25s ease-in 0.5s;
 }
+
+.buttonPortrait{
+		left: 50%;
+}
+
+.buttonLandscape{
+		left: 85%;
+}
+
 /*
 .ball {
   display: flex;
@@ -300,22 +327,15 @@ input:checked + label:after {
 		</div>
 
 </div>
-	
+
 <audio id="audio-azione">
   <source src="" type="audio/mpeg">
 </audio>
-<!--
-https://assets.mixkit.co/active_storage/sfx/2313/2313-preview.mp3
-https://assets.mixkit.co/active_storage/sfx/2045/2045-preview.mp3
-https://assets.mixkit.co/active_storage/sfx/227/227-preview.mp3
-https://assets.mixkit.co/active_storage/sfx/914/914-preview.mp3
-https://assets.mixkit.co/active_storage/sfx/2784/2784-preview.mp3
 
--->
-	</div>
+</div>
+
 	
-	
-  <script>
+<script>
 
 const apiKey = 'AIzaSyAM3dcFBIVc8DCwYSrfVWj0uAAUc2Xqxdo';
 const sheetId = '1mpDaPQYDQbfTpigGCI6jHS38re7UKIjobeq6BLs1-w8';
@@ -589,8 +609,8 @@ window.addEventListener('beforeunload', function (e) {
   	
   	function theEnd(){
 
-	  	const regole = document.getElementById('regole');
-	    regole.innerHTML = '';
+	  	//const regole = document.getElementById('regole');
+	    //regole.innerHTML = '';
 	    
 			const catAzioneSel = document.getElementById('cat-azione-Sel');
 	    catAzioneSel.innerHTML = '';
@@ -753,6 +773,44 @@ audioArray.push('https://github.com/Didacus85/Jenga/raw/main/wee.mp3');
 audioArray.push('https://github.com/Didacus85/Jenga/raw/main/weeweewee.mp3');
 
 		}
+		
+		function switchPortrait(){
+			
+			$('#img-Sel').removeClass("imgAzioneLandscape");
+			$('#img-Sel').addClass("imgAzione");
+			
+			$('#cat-azione-Sel').removeClass("margin0");
+			$('#cat-azione-Sel').addClass("margin1");
+			
+			$('#azione-Sel').removeClass("margin0");
+			$('#azione-Sel').addClass("margin1");
+			
+			$('#sceltaGioco-button').removeClass("buttonLandscape");
+			$('#sceltaGioco-button').addClass("buttonPortrait");
+			
+			$('#azioneRandom-button').removeClass("buttonLandscape");
+			$('#azioneRandom-button').addClass("buttonPortrait");
+		}
+		
+		function switchLandscape(){
+
+			$('#img-Sel').removeClass("imgAzione");
+			$('#img-Sel').addClass("imgAzioneLandscape");
+			
+			$('#cat-azione-Sel').removeClass("margin1");
+			$('#cat-azione-Sel').addClass("margin0");
+			
+			$('#azione-Sel').removeClass("margin1");
+			$('#azione-Sel').addClass("margin0");
+			
+			$('#sceltaGioco-button').removeClass("buttonPortrait");
+			$('#sceltaGioco-button').addClass("buttonLandscape");
+			
+			$('#azioneRandom-button').removeClass("buttonPortrait");
+			$('#azioneRandom-button').addClass("buttonLandscape");
+			
+			  
+		}
 
 
 		$(document).ready(function(){
@@ -780,9 +838,24 @@ audioArray.push('https://github.com/Didacus85/Jenga/raw/main/weeweewee.mp3');
     $('#img-Sel').hide();
 		$('#azione-Sel').hide();
 		$('#azioneRandom-button').hide();
-		$('#regole').hide();
+		//$('#regole').hide();
 		$('#div-ck-jenga').hide();
+		switchPortrait();
 		
+		window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
+    const portrait = e.matches;
+
+    if (portrait) {
+    		console.log("PORTRAIT");
+        //alert("PORTRAIT");
+        switchPortrait();
+    } else {
+    		console.log("LANDSCAPE");
+        //alert("LANDSCAPE");
+        switchLandscape();
+    }
+});
+
   </script>
   
 
