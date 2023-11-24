@@ -10,27 +10,51 @@
 </head>
 <style>
 
+head {
+	height: 0vh;
+}
+
 body {
-  margin: 0;
+	margin: 0;
 	font-family: 'Bangers', regular;
   height: 100vh;
   background-color: #7f00ff;
   background-image: linear-gradient(19deg, #7f00ff 0%, #e100ff 100%);
 }
 
-.margin1{
-	margin: 0.8em;
+.bodyLandscape{
+  display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	height: 99%;
+
 }
 
-.margin0{
-	margin: 0.1em;
+.bodyPortrait{
+  display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	height: 99%;
+
+}
+
+.h1margin1{
+	margin: 0.6em 0em 0em 0em;
+}
+
+.h1margin0{
+	margin: 0.1em 0.2em 0em 0.2em;
+}
+
+.h2margin1{
+	margin: 0.8em 0.5em 0.8em 0.5em;
+}
+
+.h2margin0{
+	margin: 0em 0.2em 0em 0.2em;
 }
 
 h1 {
-	display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
   color: #ffffff;
 	letter-spacing: 0.2rem;
 	word-spacing: 0.1rem;
@@ -43,10 +67,6 @@ h1 {
 }
 
 h2 {
-	display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
   color: #ffffff;
 	letter-spacing: 0.1rem;
 	word-spacing: 0.1rem;
@@ -60,33 +80,24 @@ h2 {
 }
 
 h3 {
-	display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+	margin: 1em 0.5em 0 0.5em;
   color: #ffffff;
 	letter-spacing: 0.1rem;
 	word-spacing: 0.1rem;
 	
-	margin: 1em;
   text-align: left;
   font-weight: 300;
   font-size: 20px;
 }
 
-.testoazione{
-display: flex;
-justify-content: center;
-align-items: center;
-position: relative;
-}
 
 .imgAzione{
 	width: auto;
   height: 55vmin;
   display: flex;
   position: relative;
-	margin:auto;
+	margin-left :auto;
+	margin-right :auto;
 	max-width: 95%;
 }
 
@@ -120,6 +131,7 @@ position: relative;
   position: fixed;
 	/*left: 50%;*/
   bottom: 20px;
+  z-index: 10;
 
 	margin-top: -20vmin; /* Negative half of height. */
 	margin-left: -20vmin; /* Negative half of width. */
@@ -142,7 +154,7 @@ position: relative;
 }
 
 .buttonLandscape{
-		left: 85%;
+		left: 90%;
 }
 
 /*
@@ -259,26 +271,27 @@ input:checked + label:after {
 
 .switches{
 	position: relative;
-	left: 20%;
+	left: 10%;
 	display: inline-block;
+	width: 60vw;
+	margin-top: 3em;
 
 }
 
 
 
 </style>
-<body oncontextmenu="return false;">
-  
-  <div class="testoAzione">
+<body id="corpo" oncontextmenu="return false;">
+
+  <div id="testoAzione" class="">
 
 	<h1 id="cat-azione-Sel">LETS GET WASTEEEED!!!</h1>
 	<h2 id="azione-Sel"></h2>
-	<h3 id="regole">
-  </h3>
+	<h3 id="regole"></h3>
   <div>
   	<img class="imgAzione boximg" id="img-Sel" src="">
 	</div>
-	
+
 	<div id="sceltaGioco-button" class="ball">
       <span id="sceltaGioco">DAI CAZZO</span>
   </div>
@@ -315,7 +328,7 @@ input:checked + label:after {
 		<br>
 		<br>
 		<div>
-				<input id="ck-countdown" name="ck-countdown" type="checkbox" checked />
+				<input id="ck-countdown" name="ck-countdown" type="checkbox"  />
 				<label for="ck-countdown"></label>
 				Countdown
 		</div>
@@ -326,14 +339,13 @@ input:checked + label:after {
 				Audio
 		</div>
 
-</div>
+</div><!--switches-->
 
 <audio id="audio-azione">
   <source src="" type="audio/mpeg">
 </audio>
 
-</div>
-
+</div><!--testoAzione-->
 	
 <script>
 
@@ -687,10 +699,15 @@ window.addEventListener('beforeunload', function (e) {
 		}
 
 		function opacizza(){
-			if($('#azioneRandom-button').css("opacity") == 0.001 || $('#azioneRandom-button').css("opacity") == 1){
+			/*if($('#azioneRandom-button').css("opacity") == 0 || $('#azioneRandom-button').css("opacity") == 1){
 				$('#azioneRandom-button').fadeTo("fast", 1);
-				$('#azioneRandom-button').fadeTo(3000, 0.001);
-			}
+				$('#azioneRandom-button').fadeTo(2000, 0);
+			}*/
+			
+			$('#azioneRandom-button').stop(true).fadeTo(1,1);
+			$('#azioneRandom-button').fadeTo(1000,1);
+			$('#azioneRandom-button').fadeTo(2000, 0);
+			
 		}
 
 		function prepareAudio(){
@@ -776,14 +793,20 @@ audioArray.push('https://github.com/Didacus85/Jenga/raw/main/weeweewee.mp3');
 		
 		function switchPortrait(){
 			
+			//$('#corpo').removeClass("bodyLandscape");
+			//$('#corpo').addClass("bodyPortrait");
+			
+			$('#testoAzione').removeClass("bodyLandscape");
+			$('#testoAzione').addClass("bodyPortrait");
+			
 			$('#img-Sel').removeClass("imgAzioneLandscape");
 			$('#img-Sel').addClass("imgAzione");
 			
-			$('#cat-azione-Sel').removeClass("margin0");
-			$('#cat-azione-Sel').addClass("margin1");
+			$('#cat-azione-Sel').removeClass("h1margin0");
+			$('#cat-azione-Sel').addClass("h1margin1");
 			
-			$('#azione-Sel').removeClass("margin0");
-			$('#azione-Sel').addClass("margin1");
+			$('#azione-Sel').removeClass("h2margin0");
+			$('#azione-Sel').addClass("h2margin1");
 			
 			$('#sceltaGioco-button').removeClass("buttonLandscape");
 			$('#sceltaGioco-button').addClass("buttonPortrait");
@@ -794,14 +817,20 @@ audioArray.push('https://github.com/Didacus85/Jenga/raw/main/weeweewee.mp3');
 		
 		function switchLandscape(){
 
+			//$('#corpo').removeClass("bodyPortrait");
+			//$('#corpo').addClass("bodyLandscape");
+			
+			$('#testoAzione').removeClass("bodyPortrait");
+			$('#testoAzione').addClass("bodyLandscape");
+			
 			$('#img-Sel').removeClass("imgAzione");
 			$('#img-Sel').addClass("imgAzioneLandscape");
 			
-			$('#cat-azione-Sel').removeClass("margin1");
-			$('#cat-azione-Sel').addClass("margin0");
+			$('#cat-azione-Sel').removeClass("h1margin1");
+			$('#cat-azione-Sel').addClass("h1margin0");
 			
-			$('#azione-Sel').removeClass("margin1");
-			$('#azione-Sel').addClass("margin0");
+			$('#azione-Sel').removeClass("h2margin1");
+			$('#azione-Sel').addClass("h2margin0");
 			
 			$('#sceltaGioco-button').removeClass("buttonPortrait");
 			$('#sceltaGioco-button').addClass("buttonLandscape");
@@ -841,6 +870,7 @@ audioArray.push('https://github.com/Didacus85/Jenga/raw/main/weeweewee.mp3');
 		//$('#regole').hide();
 		$('#div-ck-jenga').hide();
 		switchPortrait();
+		//switchLandscape();
 		
 		window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
     const portrait = e.matches;
