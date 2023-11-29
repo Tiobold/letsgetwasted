@@ -154,7 +154,7 @@ h3 {
 }
 
 .buttonLandscape{
-		left: 87%;
+		left: 85%;
 }
 
 /*
@@ -356,6 +356,7 @@ var azioni = new Array();
 var azioniPassate = new Array();
 var audioArray = new Array();
 var audioArrayPassate = new Array();
+var audioArrayRandom = new Array();
 
 var rand = 0;
 var randAudio = 0;
@@ -368,6 +369,7 @@ var rCateg = '';
 var rValue = '';
 var rImg = '';
 var rSound = '';
+var rVectAudioRandom = [];
 
 window.addEventListener('beforeunload', function (e) {
 
@@ -384,7 +386,7 @@ window.addEventListener('beforeunload', function (e) {
       //const sheetId = '1mpDaPQYDQbfTpigGCI6jHS38re7UKIjobeq6BLs1-w8';
 
       // URL per accedere ai dati del Google Sheet
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Azioni?key=${apiKey}`;
 				
       // Effettua una richiesta GET per ottenere i dati
       fetch(url)
@@ -397,6 +399,35 @@ window.addEventListener('beforeunload', function (e) {
             azioni.push(row);
 
           });
+        })
+        .catch(error => {
+          console.error('Errore nella lettura dei dati:', error);
+        });
+    }
+    
+    function loadGoogleSheetAudio() {
+      // Sostituisci con la tua chiave di API e ID del foglio di calcolo
+      //const apiKey = 'AIzaSyAM3dcFBIVc8DCwYSrfVWj0uAAUc2Xqxdo';
+      //const sheetId = '1mpDaPQYDQbfTpigGCI6jHS38re7UKIjobeq6BLs1-w8';
+
+      // URL per accedere ai dati del Google Sheet
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Audio?key=${apiKey}`;
+				
+      // Effettua una richiesta GET per ottenere i dati
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+          // Estrai i dati e crea elementi della lista
+          data.values.forEach(row => {
+            
+            audioArrayRandom.push(row);
+            //console.log(audioArrayRandom);
+            //console.log(audioArrayRandom);
+            //console.log(audioArrayRandom.length);
+
+          });
+          prepareAudio();
         })
         .catch(error => {
           console.error('Errore nella lettura dei dati:', error);
@@ -529,12 +560,16 @@ window.addEventListener('beforeunload', function (e) {
     azioneSel.textContent=rValue;
     $('#azione-Sel').show();
     
-    const imgSel = document.getElementById('img-Sel');
+/*    const imgSel = document.getElementById('img-Sel');
     imgSel.innerHTML = '';
-    imgSel.src='';
+    imgSel.src='';*/
+		//$('#img-Sel').attr("innerHTML",'');
+		$('#img-Sel').attr("src",'');
+	
     //console.log(rImg);
     if(rImg!=undefined && rImg!=''){
-    	imgSel.src=rImg;
+    	/*imgSel.src=rImg;*/
+		$('#img-Sel').attr("src",rImg);
 	    $('#img-Sel').show();
 		}else{
 			$('#img-Sel').hide();
@@ -631,9 +666,11 @@ window.addEventListener('beforeunload', function (e) {
 			const azioneSel = document.getElementById('azione-Sel');
 	    azioneSel.innerHTML = '';
 	    
-	    const imgSel = document.getElementById('img-Sel');
+/*	    const imgSel = document.getElementById('img-Sel');
 	    imgSel.innerHTML = '';
-	    imgSel.src='';
+	    imgSel.src='';*/
+		//$('#img-Sel').attr("innerHTML",'');
+    	$('#img-Sel').attr("src",'');
 			$('#img-Sel').hide();
 			
 			var color1='#7f00ff';
@@ -711,84 +748,15 @@ window.addEventListener('beforeunload', function (e) {
 		}
 
 		function prepareAudio(){
-audioArray.push('https://www.myinstants.com/media/sounds/dun-dun-dun-sound-effect-brass_8nFBccR.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/mlg-airhorn.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/metal-pipe-clang.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/nooo.swf.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/y2mate_DO1kVeR.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/thisissparta.swf.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/eero.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/deja-vu.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/gas-gas-gaslqshort.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/machi-no-dorufin.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/hd-epic-sax-gandalf-10-sec_f1uqKhm.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/cat-vibing-to-ievan-polkka.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/jojos-golden-wind_kL2WElB.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/trollolo.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/edit_sEoaCDA.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/hold-up-tiktok.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/mc-hammer-u-cant-touch-this_Jl5Q7Hq.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/saul-goodman-better-call-saul.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/nein-adolf.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/giga-chad-theme.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/nick-eh-30-intro.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/olha-o-caminhar-do-elemento.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/spooky-scary-skeleton_WnTSX24.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/call-of-duty-zombie-yell-meme-sound-effect.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/original_zeowGW1.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/tiktok-du-badu.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/the-weeknd-rizzz.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/sound-9______.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/joke_drum_effect.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/artic.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/nibbers-hardbass.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/downer_noise.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/audio-cortado-2.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/meme-de-creditos-finales.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/run-vine-sound-effect.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/999-social-credit-siren.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/oh-no-no-no-tik-tok-song-sound-effect.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/weeeee_original_1193597514938524841.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/matteo-renzi-first-reaction.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/dj-snake-lil-jon-turn-down-for-what.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/sto-cazzo.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/non-ho-visto-niente.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/salvinii.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/renato-pozzetto.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/oh-no-no-no-no-laugh.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/emotional-damage_svaNMfN.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/rick-astley-never-gonna-give-you-up-chorus-1-audiotrimmer.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/titanic-parody-mp3cut.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/gangstasparadise.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/signora_i_limoni.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/universal-porco_IyeXJKu.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/germanomosconi_orco.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/audiocutter_i-griffin-il-ristorante-sushi-di-peter2.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/momento.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/DAbanana.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/DAcookie.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/DAuglyboy.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/belloBello.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/dennyfurboiovol.mp3');
-audioArray.push('https://www.myinstants.com/media/sounds/herecomesthemoney.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/silvio2.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/118.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/vitas.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/nevergonna.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/macellaio.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/lacipollaTrap.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/130sivola.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/micasonodeinegri.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/amazoni.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/silviotiktok.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/euforico.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/silvioce.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/EVA.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/AOT.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/BeTrap.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/wee.mp3');
-audioArray.push('https://github.com/Didacus85/Jenga/raw/main/weeweewee.mp3');
-
+			
+			//console.log(audioArrayRandom.length);
+			
+			for(i=0; i<audioArrayRandom.length; i++){
+				rVectAudioRandom = audioArrayRandom[i];
+				//console.log(rVectAudioRandom);
+				audioArray.push(rVectAudioRandom[0]);
+			}
+			//console.log(audioArray);
 		}
 		
 		function switchPortrait(){
@@ -857,20 +825,23 @@ audioArray.push('https://github.com/Didacus85/Jenga/raw/main/weeweewee.mp3');
 			myButton.addEventListener('touchend', buttonUp);
 			myButton.addEventListener('touchmove', buttonUp);
 			
-			prepareAudio();
 			
 		});
 
 
     // Carica i dati al caricamento della pagina
     loadGoogleSheetData();
+    loadGoogleSheetAudio();
+		switchPortrait();
+		//switchLandscape();
     $('#img-Sel').hide();
+
 		$('#azione-Sel').hide();
 		$('#azioneRandom-button').hide();
 		//$('#regole').hide();
 		$('#div-ck-jenga').hide();
-		switchPortrait();
-		//switchLandscape();
+
+
 		
 		window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
     const portrait = e.matches;
