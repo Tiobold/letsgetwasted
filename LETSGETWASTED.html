@@ -131,7 +131,7 @@ h3 {
   position: fixed;
 	/*left: 50%;*/
   bottom: 20px;
-  z-index: 10;
+  z-index: 2;
 
 	margin-top: -20vmin; /* Negative half of height. */
 	margin-left: -20vmin; /* Negative half of width. */
@@ -278,7 +278,24 @@ input:checked + label:after {
 
 }
 
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
 
+#overlay img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+}
 
 </style>
 <body id="corpo" oncontextmenu="return false;">
@@ -289,8 +306,11 @@ input:checked + label:after {
 	<h2 id="azione-Sel"></h2>
 	<h3 id="regole"></h3>
   <div>
-  	<img class="imgAzione boximg" id="img-Sel" src="">
+  	<img class="imgAzione boximg" id="img-Sel" src="" ondblclick="openOverlay()">
 	</div>
+	<div id="overlay" onclick="closeOverlay()">
+  	<img class="boximg" id="img-Sel-over" src="">
+  </div>
 
 	<div id="sceltaGioco-button" class="ball">
       <span id="sceltaGioco">DAI CAZZO</span>
@@ -569,7 +589,7 @@ window.addEventListener('beforeunload', function (e) {
     //console.log(rImg);
     if(rImg!=undefined && rImg!=''){
     	/*imgSel.src=rImg;*/
-		$('#img-Sel').attr("src",rImg);
+			$('#img-Sel').attr("src",rImg);
 	    $('#img-Sel').show();
 		}else{
 			$('#img-Sel').hide();
@@ -759,6 +779,24 @@ window.addEventListener('beforeunload', function (e) {
 			//console.log(audioArray);
 		}
 		
+		function openOverlay() {
+      // Mostra l'overlay
+      
+      $('#img-Sel-over').attr("src",$('#img-Sel').attr("src"));
+      document.getElementById("overlay").style.display = "flex";
+
+      // Disabilita lo scroll della pagina principale
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeOverlay() {
+      // Nascondi l'overlay
+      document.getElementById("overlay").style.display = "none";
+
+      // Riabilita lo scroll della pagina principale
+      document.body.style.overflow = "auto";
+    }
+    
 		function switchPortrait(){
 			
 			//$('#corpo').removeClass("bodyLandscape");
