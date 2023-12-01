@@ -322,7 +322,7 @@ input:checked + label:after {
 
 <div id="switches" class="switches">
 		<div>
-				<input id="ck-actions" name="ck-actions" type="checkbox" checked />
+				<input id="ck-actions" name="ck-actions" type="checkbox"  />
 				<label for="ck-actions"></label>
 				Actions
 		</div>
@@ -362,7 +362,7 @@ input:checked + label:after {
 </div><!--switches-->
 
 <audio id="audio-azione">
-  <source src="" type="audio/mpeg">
+  <source src="https://github.com/Didacus85/letsgetwasted/raw/main/Ezekiele.mp3" type="audio/mpeg">
 </audio>
 
 </div><!--testoAzione-->
@@ -640,13 +640,20 @@ window.addEventListener('beforeunload', function (e) {
   	}
   	
   	function startGame(){
-  		
-  		// JENGA
+  		const ckActions = document.getElementById('ck-actions');
+			const ckHot = document.getElementById('ck-hot');
+			const ckCards = document.getElementById('ck-cards');
+		
+			if(!ckActions.checked && !ckHot.checked && !ckCards.checked){
+				return;
+			}
+			
+  		// NO JENGA
   		const ckJenga = document.getElementById('ck-jenga');
   		if(!ckJenga.checked){
   			$('#regole').html("REGOLE:<br>- Se fallisci l'azione bevi! <br>- Se ti rifiuti di svolgere l'azione bevi!<br> - Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!<br><br>'' Ezechiele 25,17 '' Il cammino dell' uomo timorato e' minacciato da ogni parte dalle iniquita' degli esseri egoisti e dalla tirannia degli uomini malvagi. Benedetto sia colui che nel nome della carita' e della buona volonta' conduce i deboli attraverso la valle delle tenebre; perche' egli e' in verita' il pastore di suo fratello e il ricercatore dei figli smarriti. E la mia giustizia calera' sopra di loro con grandissima vendetta e furiosissimo sdegno su coloro che si proveranno ad ammorbare e infine a distruggere i miei fratelli. E tu saprai che il mio nome e' quello del Signore quando faro' calare la mia vendetta sopra di te.");
   			const audioAzione = document.getElementById('audio-azione');
-  			audioAzione.src='https://github.com/Didacus85/Jenga/raw/main/Ezekiele.mp3';
+  			audioAzione.src='https://github.com/Didacus85/letsgetwasted/raw/main/Ezekiele.mp3';
   			
 	  		try {
 				  audioAzione.play();
@@ -654,11 +661,11 @@ window.addEventListener('beforeunload', function (e) {
 				  console.error(error);
 				}
 			
-  		}else{ // NO JENGA
+  		}else{ // JENGA
   			
   			$('#regole').html("REGOLE:<br>- Chi fa cadere il jenga beve un bicchiere alla goccia!	<br>- Se ti cade un blocchetto sul tavolo mentre estrai bevi un sorso!	<br>- Se fallisci l'azione bevi!	<br>- Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!<br><br>'' Ezechiele 25,17 '' Il cammino dell' uomo timorato e' minacciato da ogni parte dalle iniquita' degli esseri egoisti e dalla tirannia degli uomini malvagi. Benedetto sia colui che nel nome della carita' e della buona volonta' conduce i deboli attraverso la valle delle tenebre; perche' egli e' in verita' il pastore di suo fratello e il ricercatore dei figli smarriti. E la mia giustizia calera' sopra di loro con grandissima vendetta e furiosissimo sdegno su coloro che si proveranno ad ammorbare e infine a distruggere i miei fratelli. E tu saprai che il mio nome e' quello del Signore quando faro' calare la mia vendetta sopra di te.");
   			const audioAzione = document.getElementById('audio-azione');
-  			audioAzione.src='https://github.com/Didacus85/Jenga/raw/main/Ezekiele.mp3';
+  			audioAzione.src='https://github.com/Didacus85/letsgetwasted/raw/main/Ezekiele.mp3';
   			
   			try {
 				  audioAzione.play();
@@ -878,7 +885,6 @@ window.addEventListener('beforeunload', function (e) {
 		$('#azioneRandom-button').hide();
 		//$('#regole').hide();
 		$('#div-ck-jenga').hide();
-
 
 		
 		window.matchMedia("(orientation: portrait)").addEventListener("change", e => {
