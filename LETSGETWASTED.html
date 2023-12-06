@@ -149,12 +149,73 @@ h3 {
     transform 0.25s ease-in 0.25s, border-radius 0.25s ease-in 0.5s;
 }
 
+.ballAudio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font: 500 5vmin/6vmin Helvetica, Arial, sans-serif;
+  
+  position: fixed;
+	/*left: 50%;*/
+  /*top: 20px;*/
+  z-index: 2;
+
+	margin-top: -20vmin; /* Negative half of height. */
+	margin-left: -20vmin; /* Negative half of width. */
+
+  /*width: 40vmin;
+  height: 40vmin;*/
+  padding: 8vmin;
+  box-sizing: border-box;
+  border-radius: 1em;
+  background: #000040;
+
+  cursor: pointer;
+  box-shadow: 0 2vmin 2.5vmin -2vmin rgba(0, 0, 0, 0.5);
+  transition: background 0.25s ease-in, color 0.25s ease-in,
+    transform 0.25s ease-in 0.25s, border-radius 0.25s ease-in 0.5s;
+}
+.ballAudio span {
+  z-index: 1;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.25vmin;
+  user-select: none;
+  font-size: 1.5em;
+  line-height: 120%;
+  font-family: 'Bangers', regular;
+}
+.ballAudio .large-text {
+  font-size: 2.5em;
+  line-height: 0.875em;
+}
+
+.audiobtn{
+  left: 20%;
+}
+
+.audiobtnPortrait{
+	  width: 25vmin;
+  	height: 25vmin;
+		left: 22.5%;
+		bottom: 40px;
+}
+
+.audiobtnLandscape{
+	  width: 40vmin;
+  	height: 40vmin;
+		left: 17%;
+		bottom: 20px;
+}
+
 .buttonPortrait{
 		left: 50%;
 }
 
 .buttonLandscape{
-		left: 80%;
+		left: 83%;
 }
 
 /*
@@ -221,7 +282,7 @@ h3 {
 
 .ball:active {
   border-radius: 50%;
-  transform: scale(0.625);
+  transform: scale(0.850);
   background: #fff;
   color: navy;
   transition: border-radius 0.25s ease-out, transform 0.25s ease-out 0.25s,
@@ -312,6 +373,9 @@ input:checked + label:after {
   	<img class="" id="img-Sel-over" src="">
   </div>
 
+	<div id="audio-button" class="ballAudio audiobtn">
+      <span id="comandiaudio">PAUSE AUDIO</span>
+  </div>
 	<div id="sceltaGioco-button" class="ball">
       <span id="sceltaGioco">DAI CAZZO</span>
   </div>
@@ -678,6 +742,7 @@ window.addEventListener('beforeunload', function (e) {
   		$('#azioneRandom-button').show();
   		$('#sceltaGioco-button').hide();
   		$('#switches').hide();
+  		$('#audio-button').fadeTo(1, 0);
 
   	}
   	
@@ -761,18 +826,86 @@ window.addEventListener('beforeunload', function (e) {
 		  clearTimeout(timeout);
 		  buttonPressed = false;
 		}
+		
+		function buttonAudioDown() {
+		  // Imposta buttonAudioPressed a true quando il pulsante viene premuto
+		  //alert("pressed");
+		  buttonAudioPressed = true;
+		  buttonAudioPression = buttonAudioPression+1;
+		  startAudioTimer(buttonAudioPression);
+		  audioBtnActions();
+		}
+		
+		function buttonAudioUp() {
+		  // imposta buttonAudioPressed a false quando il pulsante viene rilasciato
+		  //alert("pressed");
+		  buttonAudioPressed = false;
+		}
 
 		function opacizza(){
-			/*if($('#azioneRandom-button').css("opacity") == 0 || $('#azioneRandom-button').css("opacity") == 1){
-				$('#azioneRandom-button').fadeTo("fast", 1);
-				$('#azioneRandom-button').fadeTo(2000, 0);
-			}*/
 			
 			$('#azioneRandom-button').stop(true).fadeTo(1,1);
-			$('#azioneRandom-button').fadeTo(1000,1);
+			$('#azioneRandom-button').fadeTo(3000,1);
 			$('#azioneRandom-button').fadeTo(2000, 0);
-			
 		}
+		
+		function audioBtnActions(){
+
+			$('#audio-button').stop(true).fadeTo(1,1);
+			$('#audio-button').fadeTo(3000,1);
+			$('#audio-button').fadeTo(2000, 0);
+
+		}
+		
+		let buttonAudioPressed = false;
+		var buttonAudioPression = 0;
+		let timeoutAudio;
+		let timeoutPauseResume;
+		
+		function startAudioTimer(buttonAudioPressionOrig) {
+			
+			const audioAzione = document.getElementById('audio-azione');
+
+		  timeoutPauseResume = setTimeout(function() {
+		  	//console.log('ENTRO function timeoutPauseResume');
+		  	//console.log('!buttonAudioPressed '+!buttonAudioPressed);
+		  	
+		   	if(audioAzione.paused && !buttonAudioPressed){
+		  		
+		  		audioAzione.play();
+		  		$('#comandiaudio').text('PAUSE AUDIO');
+		  		return false;
+			  }
+			  
+			  if(!audioAzione.paused && !buttonAudioPressed){
+			  	
+			  	audioAzione.pause();
+			  	$('#comandiaudio').text('PLAY AUDIO');
+			  	return false;
+			  }
+			  
+		  }, 200);
+		  
+		  
+		  // Avvia un timer di 3 secondi
+		  timeoutAudio = setTimeout(function() {
+		  	//console.log('ENTRO function timeoutAudio');
+		  	//console.log('buttonAudioPressed '+buttonAudioPressed);
+		  	
+				//console.log('buttonAudioPression '+ buttonAudioPression + '  ' + buttonAudioPressionOrig);
+			  
+		    if (buttonAudioPressed && buttonAudioPression == buttonAudioPressionOrig) {
+		      // Esegui l'azione desiderata
+
+		      audioAzione.pause();
+		      audioAzione.currentTime = 0;
+		      audioAzione.play();
+		      $('#comandiaudio').text('PAUSE AUDIO');
+		    }
+		  }, 3000); // 3000 millisecondi (3 secondi)
+		}
+
+	
 
 		function prepareAudio(){
 			
@@ -826,6 +959,10 @@ window.addEventListener('beforeunload', function (e) {
 			
 			$('#azioneRandom-button').removeClass("buttonLandscape");
 			$('#azioneRandom-button').addClass("buttonPortrait");
+			
+			$('#audio-button').removeClass("audiobtnLandscape");
+			$('#audio-button').addClass("audiobtnPortrait");
+			
 		}
 		
 		function switchLandscape(){
@@ -851,6 +988,8 @@ window.addEventListener('beforeunload', function (e) {
 			$('#azioneRandom-button').removeClass("buttonPortrait");
 			$('#azioneRandom-button').addClass("buttonLandscape");
 			
+			$('#audio-button').removeClass("audiobtnPortrait");
+			$('#audio-button').addClass("audiobtnLandscape");
 			  
 		}
 
@@ -870,6 +1009,10 @@ window.addEventListener('beforeunload', function (e) {
 			myButton.addEventListener('touchend', buttonUp);
 			myButton.addEventListener('touchmove', buttonUp);
 			
+			const myAudioButton = document.getElementById('audio-button');
+			myAudioButton.addEventListener('mousedown', buttonAudioDown);
+			myAudioButton.addEventListener('mouseup', buttonAudioUp);
+			myAudioButton.addEventListener('mouseleave', buttonAudioUp);
 			
 		});
 
@@ -883,6 +1026,7 @@ window.addEventListener('beforeunload', function (e) {
 
 		$('#azione-Sel').hide();
 		$('#azioneRandom-button').hide();
+		$('#audio-button').hide();
 		//$('#regole').hide();
 		$('#div-ck-jenga').hide();
 
