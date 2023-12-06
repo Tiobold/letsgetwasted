@@ -131,7 +131,7 @@ h3 {
   position: fixed;
 	/*left: 50%;*/
   bottom: 20px;
-  z-index: 2;
+  z-index: 3;
 
 	margin-top: -20vmin; /* Negative half of height. */
 	margin-left: -20vmin; /* Negative half of width. */
@@ -159,7 +159,7 @@ h3 {
   position: fixed;
 	/*left: 50%;*/
   /*top: 20px;*/
-  z-index: 2;
+  z-index: 3;
 
 	margin-top: -20vmin; /* Negative half of height. */
 	margin-left: -20vmin; /* Negative half of width. */
@@ -191,7 +191,47 @@ h3 {
   font-size: 2.5em;
   line-height: 0.875em;
 }
-
+/*
+.ballAudio::before {
+	content: "";
+  position: absolute;
+  top: 22.5%;
+  left: 5%;
+  width: 90%;
+  height: 80%;
+  border-radius: inherit;
+  background: inherit;
+  filter: blur(3vmin);
+}
+.ballAudio::after {
+	content: "";
+  position: absolute;
+  left: -25%;
+  top: -25%;
+  width: 150%;
+  height: 150%;
+  border: 6vmin solid #000040;
+  opacity: 0.25;
+  box-sizing: border-box;
+  border-radius: 50%;
+  transform: scale(0.5);
+  transition: all 0.5s ease-in;
+  z-index: -10;
+}
+.ballAudio:active {
+	border-radius: 50%;
+  transform: scale(1);
+  background: #fff;
+  color: navy;
+  transition: border-radius 0.25s ease-out, transform 0.25s ease-out 0.25s,
+    background 0.25s ease-out 0.5s, color 0.25s ease-out 0.5s;
+}
+.ballAudio:active::after {
+  transform: scale(1);
+  border-color: #fff;
+  transition: all 0.25s ease-out 0.5s;
+}
+*/
 .audiobtn{
   left: 20%;
 }
@@ -206,7 +246,7 @@ h3 {
 .audiobtnLandscape{
 	  width: 40vmin;
   	height: 40vmin;
-		left: 17%;
+		left: 15%;
 		bottom: 20px;
 }
 
@@ -349,13 +389,30 @@ input:checked + label:after {
   background: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
-  z-index: 3;
+  z-index: 5;
 }
 
 #overlay img {
   width: 100vw;
   height: 100vh;
   object-fit: contain;
+}
+
+#overlayNonSelezionabile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.0);
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+#imgAzioneDiv {
+	z-index: 3;
 }
 
 </style>
@@ -366,11 +423,13 @@ input:checked + label:after {
 	<h1 id="cat-azione-Sel">LETS GET WASTEEEED!!!</h1>
 	<h2 id="azione-Sel"></h2>
 	<h3 id="regole"></h3>
-  <div>
+  <div id="imgAzioneDiv">
   	<img class="imgAzione boximg" id="img-Sel" src="" ondblclick="openOverlay()">
 	</div>
 	<div id="overlay" onclick="closeOverlay()">
   	<img class="" id="img-Sel-over" src="">
+  </div>
+  <div id="overlayNonSelezionabile">
   </div>
 
 	<div id="audio-button" class="ballAudio audiobtn">
@@ -743,6 +802,7 @@ window.addEventListener('beforeunload', function (e) {
   		$('#sceltaGioco-button').hide();
   		$('#switches').hide();
   		$('#audio-button').fadeTo(1, 0);
+			$('#overlayNonSelezionabile').css("display","flex");
 
   	}
   	
@@ -773,12 +833,12 @@ window.addEventListener('beforeunload', function (e) {
   	}
   	
   	function startCountdown() {
-  		let timeLeft = 15;
+  		let timeLeft = 10;
   		
   		const ckCountdown = document.getElementById('ck-countdown');
   		
   		if(ckCountdown.checked){
-  				timeLeft = 15;
+  				timeLeft = 10;
   		}else{
   				timeLeft = 0;
   		}
@@ -902,7 +962,7 @@ window.addEventListener('beforeunload', function (e) {
 		      audioAzione.play();
 		      $('#comandiaudio').text('PAUSE AUDIO');
 		    }
-		  }, 3000); // 3000 millisecondi (3 secondi)
+		  }, 1500); // 3000 millisecondi (3 secondi)
 		}
 
 	
@@ -996,24 +1056,32 @@ window.addEventListener('beforeunload', function (e) {
 
 		$(document).ready(function(){
 	  	// Aggiungi gli eventi per il pulsante
+			var mobile   = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
+			var tstart = mobile ? "touchstart" : "mousedown";
+			//$("#roll").bind(start, function(event){
+	
 	  	const sceltaGiocoButton = document.getElementById('sceltaGioco-button');
 	  	sceltaGiocoButton.addEventListener('mousedown', startGame);
 	  	sceltaGiocoButton.addEventListener('touchstart', startGame);
 	  	
 			const myButton = document.getElementById('azioneRandom-button');
-			myButton.addEventListener('mousedown', buttonDown);
+			//myButton.addEventListener('mousedown', buttonDown);
 			myButton.addEventListener('mouseup', buttonUp);
 			myButton.addEventListener('mouseleave', buttonUp);
 			
-			myButton.addEventListener('touchstart', buttonDown);
+			myButton.addEventListener(tstart, buttonDown);
 			myButton.addEventListener('touchend', buttonUp);
 			myButton.addEventListener('touchmove', buttonUp);
 			
 			const myAudioButton = document.getElementById('audio-button');
-			myAudioButton.addEventListener('mousedown', buttonAudioDown);
+			//myAudioButton.addEventListener('mousedown', buttonAudioDown);
 			myAudioButton.addEventListener('mouseup', buttonAudioUp);
 			myAudioButton.addEventListener('mouseleave', buttonAudioUp);
 			
+			myAudioButton.addEventListener(tstart, buttonAudioDown);
+			myAudioButton.addEventListener('touchend', buttonAudioUp);
+			myAudioButton.addEventListener('touchmove', buttonAudioUp);
+
 		});
 
 
