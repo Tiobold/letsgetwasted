@@ -445,7 +445,21 @@ input:checked + label:after {
 
 <div id="switches" class="switches">
 		<div>
-				<input id="ck-actions" name="ck-actions" type="checkbox"  />
+				<input id="ck-language-ita" name="ck-language" value="ITA" type="radio" hidden checked />
+				&nbsp;&nbsp;&nbsp;<label for="ck-language-ita"></label>
+				ITALIAN
+		</div>
+		<br>
+		<div>
+				<input id="ck-language-eng" name="ck-language" value="ENG" type="radio" hidden />
+				&nbsp;&nbsp;&nbsp;<label for="ck-language-eng"></label>
+				ENGLISH
+		</div>
+		<br>
+		<br>
+		<br>
+		<div>
+				<input id="ck-actions" name="ck-actions" type="checkbox" checked />
 				<label for="ck-actions"></label>
 				Actions
 		</div>
@@ -457,16 +471,16 @@ input:checked + label:after {
 		<br>
 		</div>
 		<div>
-				<input id="ck-cards" name="ck-cards" type="checkbox" />
+				<input id="ck-cards" name="ck-cards" type="checkbox" checked />
 				<label for="ck-cards"></label>
 				Cards
 		</div>
 		<br>
-		<div>
-				<input id="ck-hot" name="ck-hot" type="checkbox" />
-				<label for="ck-hot"></label>
-				Hot
-		</div>
+			<div>
+					<input id="ck-hot" name="ck-hot" type="checkbox" checked />
+					<label for="ck-hot"></label>
+					Hot
+			</div>
 		<br>
 		<br>
 		<br>
@@ -481,6 +495,7 @@ input:checked + label:after {
 				<label for="ck-audio"></label>
 				Audio
 		</div>
+
 
 </div><!--switches-->
 
@@ -530,6 +545,32 @@ window.addEventListener('beforeunload', function (e) {
 
       // URL per accedere ai dati del Google Sheet
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Azioni?key=${apiKey}`;
+				
+      // Effettua una richiesta GET per ottenere i dati
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+
+          // Estrai i dati e crea elementi della lista
+          data.values.forEach(row => {
+            
+            azioni.push(row);
+
+          });
+        })
+        .catch(error => {
+          console.error('Errore nella lettura dei dati:', error);
+        });
+    }
+    
+    // Funzione per caricare i dati dal Google Sheet foglio con lingua inglese
+    function loadGoogleSheetDataEnglish() {
+      // Sostituisci con la tua chiave di API e ID del foglio di calcolo
+      //const apiKey = 'AIzaSyAM3dcFBIVc8DCwYSrfVWj0uAAUc2Xqxdo';
+      //const sheetId = '1mpDaPQYDQbfTpigGCI6jHS38re7UKIjobeq6BLs1-w8';
+
+      // URL per accedere ai dati del Google Sheet
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/AzioniEnglish?key=${apiKey}`;
 				
       // Effettua una richiesta GET per ottenere i dati
       fetch(url)
@@ -763,20 +804,46 @@ window.addEventListener('beforeunload', function (e) {
   	}
   	
   	function startGame(){
+
+  		if($('#ck-language-ita').is(':checked')){
+  			loadGoogleSheetData();
+  		}
+  		
+  		if($('#ck-language-eng').is(':checked')){
+  			loadGoogleSheetDataEnglish();
+  		}
+  		
+  		loadGoogleSheetAudio();
+  		
   		const ckActions = document.getElementById('ck-actions');
 			const ckHot = document.getElementById('ck-hot');
 			const ckCards = document.getElementById('ck-cards');
-		
+			
+			if(!$('#ck-language-ita').is(':checked') && !$('#ck-language-eng').is(':checked')){
+				alert("SELECT LANGUAGE");
+				return;
+			}
+			
 			if(!ckActions.checked && !ckHot.checked && !ckCards.checked){
+				alert("SELECT ACTIONS");
 				return;
 			}
 			
   		// NO JENGA
   		const ckJenga = document.getElementById('ck-jenga');
   		if(!ckJenga.checked){
-  			$('#regole').html("REGOLE:<br>- Se fallisci l'azione bevi! <br>- Se ti rifiuti di svolgere l'azione bevi!<br> - Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!<br><br>'' Ezechiele 25,17 '' Il cammino dell' uomo timorato e' minacciato da ogni parte dalle iniquita' degli esseri egoisti e dalla tirannia degli uomini malvagi. Benedetto sia colui che nel nome della carita' e della buona volonta' conduce i deboli attraverso la valle delle tenebre; perche' egli e' in verita' il pastore di suo fratello e il ricercatore dei figli smarriti. E la mia giustizia calera' sopra di loro con grandissima vendetta e furiosissimo sdegno su coloro che si proveranno ad ammorbare e infine a distruggere i miei fratelli. E tu saprai che il mio nome e' quello del Signore quando faro' calare la mia vendetta sopra di te.");
-  			const audioAzione = document.getElementById('audio-azione');
-  			audioAzione.src='https://github.com/Didacus85/letsgetwasted/raw/main/Ezekiele.mp3';
+  			//$('#regole').html("REGOLE:<br>- Se fallisci l'azione bevi! <br>- Se ti rifiuti di svolgere l'azione bevi!<br> - Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!<br><br>'' Ezechiele 25,17 '' Il cammino dell' uomo timorato e' minacciato da ogni parte dalle iniquita' degli esseri egoisti e dalla tirannia degli uomini malvagi. Benedetto sia colui che nel nome della carita' e della buona volonta' conduce i deboli attraverso la valle delle tenebre; perche' egli e' in verita' il pastore di suo fratello e il ricercatore dei figli smarriti. E la mia giustizia calera' sopra di loro con grandissima vendetta e furiosissimo sdegno su coloro che si proveranno ad ammorbare e infine a distruggere i miei fratelli. E tu saprai che il mio nome e' quello del Signore quando faro' calare la mia vendetta sopra di te.");
+  			
+  			if($('#ck-language-ita').is(':checked')){
+					$('#regole').html("REGOLE:<br><br>- Se fallisci l'azione bevi! <br>- Se ti rifiuti di svolgere l'azione bevi!<br> - Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!");
+				}
+				
+				if($('#ck-language-eng').is(':checked')){
+					$('#regole').html("RULES:<br><br>- If you fail the action you drink! <br>- If you refuse to perform the action you drink!<br> - If you refuse 3 times to perform the action you must drink two shots prepared by your friends!");
+				}
+			
+  			//const audioAzione = document.getElementById('audio-azione');
+  			//audioAzione.src='https://github.com/Didacus85/letsgetwasted/raw/main/Ezekiele.mp3';
   			
 	  		try {
 				  audioAzione.play();
@@ -786,9 +853,9 @@ window.addEventListener('beforeunload', function (e) {
 			
   		}else{ // JENGA
   			
-  			$('#regole').html("REGOLE:<br>- Chi fa cadere il jenga beve un bicchiere alla goccia!	<br>- Se ti cade un blocchetto sul tavolo mentre estrai bevi un sorso!	<br>- Se fallisci l'azione bevi!	<br>- Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!<br><br>'' Ezechiele 25,17 '' Il cammino dell' uomo timorato e' minacciato da ogni parte dalle iniquita' degli esseri egoisti e dalla tirannia degli uomini malvagi. Benedetto sia colui che nel nome della carita' e della buona volonta' conduce i deboli attraverso la valle delle tenebre; perche' egli e' in verita' il pastore di suo fratello e il ricercatore dei figli smarriti. E la mia giustizia calera' sopra di loro con grandissima vendetta e furiosissimo sdegno su coloro che si proveranno ad ammorbare e infine a distruggere i miei fratelli. E tu saprai che il mio nome e' quello del Signore quando faro' calare la mia vendetta sopra di te.");
-  			const audioAzione = document.getElementById('audio-azione');
-  			audioAzione.src='https://github.com/Didacus85/letsgetwasted/raw/main/Ezekiele.mp3';
+  			//$('#regole').html("REGOLE:<br>- Chi fa cadere il jenga beve un bicchiere alla goccia!	<br>- Se ti cade un blocchetto sul tavolo mentre estrai bevi un sorso!	<br>- Se fallisci l'azione bevi!	<br>- Se ti rifiuti 3 volte di svolgere l'azione devi bere due shot preparati dai tuoi amici!<br><br>'' Ezechiele 25,17 '' Il cammino dell' uomo timorato e' minacciato da ogni parte dalle iniquita' degli esseri egoisti e dalla tirannia degli uomini malvagi. Benedetto sia colui che nel nome della carita' e della buona volonta' conduce i deboli attraverso la valle delle tenebre; perche' egli e' in verita' il pastore di suo fratello e il ricercatore dei figli smarriti. E la mia giustizia calera' sopra di loro con grandissima vendetta e furiosissimo sdegno su coloro che si proveranno ad ammorbare e infine a distruggere i miei fratelli. E tu saprai che il mio nome e' quello del Signore quando faro' calare la mia vendetta sopra di te.");
+  			//const audioAzione = document.getElementById('audio-azione');
+  			//audioAzione.src='https://github.com/Didacus85/letsgetwasted/raw/main/Ezekiele.mp3';
   			
   			try {
 				  audioAzione.play();
@@ -1086,8 +1153,8 @@ window.addEventListener('beforeunload', function (e) {
 
 
     // Carica i dati al caricamento della pagina
-    loadGoogleSheetData();
-    loadGoogleSheetAudio();
+    //loadGoogleSheetData();
+    //loadGoogleSheetAudio();
 		switchPortrait();
 		//switchLandscape();
     $('#img-Sel').hide();
