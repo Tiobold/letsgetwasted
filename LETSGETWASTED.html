@@ -840,6 +840,8 @@ window.addEventListener('beforeunload', function (e) {
 				
 				if($('#ck-language-eng').is(':checked')){
 					$('#regole').html("RULES:<br><br>- If you fail the action you drink! <br>- If you refuse to perform the action you drink!<br> - If you refuse 3 times to perform the action you must drink two shots prepared by your friends!");
+					const audioAzione = document.getElementById('audio-azione');
+  					audioAzione.src='https://consultingcloud.io/Ezekiel.mp3';
 				}
 			
   			//const audioAzione = document.getElementById('audio-azione');
